@@ -13,7 +13,7 @@ public class QuestionsGame {
         // Your code here
     }
 
-    public QuestionsGame(String object) {
+    public QuestionsGame(String object)//ben {
 
     }
 
@@ -21,7 +21,7 @@ public class QuestionsGame {
 
     }
 
-    public void saveQuestions(PrintStream output) {
+    public void saveQuestions(PrintStream output)//ben {
 
     }
 
