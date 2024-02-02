@@ -13,19 +13,19 @@ public class QuestionsGame {
         // Your code here
     }
 
-    public QuestionsGame(String object)//ben {
+    public QuestionsGame(String object) {//ben
 
     }
 
-    public QuestionsGame(Scanner input) {
+    public QuestionsGame(Scanner input) {//alvin
 
     }
 
-    public void saveQuestions(PrintStream output)//ben {
+    public void saveQuestions(PrintStream output)  {//ben
 
     }
 
-    public void play() {
+    public void play() {//alvin
         
     }
 }
