@@ -33,7 +33,26 @@ public class QuestionsGame {
     }
 
     public QuestionsGame(Scanner input) {//alvin
+        this(input.nextLine());
+        addBranch(input, overallQuestion);
+    }
 
+    private Boolean addBranch(Scanner input, QuestionNode curNode){
+        if(!input.hasNextLine()){
+            return true;
+        } else if(input.nextLine().charAt(0) == 'Q'){
+            curNode.left = new QuestionNode(input.nextLine());
+            return addBranch(input, curNode.left);
+        } else {
+            curNode.left = new QuestionNode(input.nextLine());
+            if(input.nextLine().charAt(0) == 'A'){
+                curNode.right = new QuestionNode(input.nextLine());
+                return true;
+            } else {
+                curNode.right = new QuestionNode(input.nextLine());
+                return addBranch(input, curNode.right);
+            }
+        }
     }
 
     public void saveQuestions(PrintStream output) {//ben
