@@ -8,15 +8,27 @@ import java.util.Scanner;
 
 public class QuestionsGame {
     // Your code here
+    QuestionNode overallQuestion;
 
     private static class QuestionNode {
         // Your code here
-        public int data;//should be the question we can change it later tho
+        public String data;//should be the question we can change it later tho
         public QuestionNode left;//otherwise yes
-        public QuestionNode Right;//otherwise no
+        public QuestionNode right;//otherwise no
+
+        public QuestionNode(String data){   
+            this(data, null, null);
+        }
+
+        public QuestionNode(String data, QuestionNode left, QuestionNode right){
+            this.data = data;
+            this.left = left;
+            this.right = right;
+        }
     }
 
     public QuestionsGame(String object) {//ben
+        overallQuestion = new QuestionNode(object);
 
     }
 
