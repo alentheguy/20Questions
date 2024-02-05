@@ -11,6 +11,9 @@ public class QuestionsGame {
 
     private static class QuestionNode {
         // Your code here
+        public int data;//should be the question we can change it later tho
+        public QuestionNode left;//otherwise yes
+        public QuestionNode Right;//otherwise no
     }
 
     public QuestionsGame(String object) {//ben
@@ -21,7 +24,7 @@ public class QuestionsGame {
 
     }
 
-    public void saveQuestions(PrintStream output)  {//ben
+    public void saveQuestions(PrintStream output) {//ben
 
     }
 
