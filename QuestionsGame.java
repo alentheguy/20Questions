@@ -56,8 +56,23 @@ public class QuestionsGame {
     }
 
     public void saveQuestions(PrintStream output) {//ben
+        if(output==null){
+            throw IllegalArgumentException();
+        }
+
+
 
     }
+
+    public Boolean printQuest(PrintStream output, QuestionNode curNode){
+        if(curNode == null){
+            return true;
+        }
+        else if(curNode.left != null){
+            
+        }
+    }
+
 
     public void play() {//alvin
         
