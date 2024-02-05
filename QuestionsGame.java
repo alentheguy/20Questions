@@ -76,5 +76,8 @@ public class QuestionsGame {
 
     public void play() {//alvin
         
+        while(curNode != null){
+
+        }
     }
 }
