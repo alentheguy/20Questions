@@ -84,9 +84,48 @@ public class QuestionsGame {
 
 
     public void play() {//alvin
-        
+        Scanner sc = new Scanner(System.in);
+        QuestionNode curNode = overallQuestion;
         while(curNode != null){
-
+            System.out.println(curNode.data + "\n");
+            String answer = sc.nextLine();
+            if(curNode.left.left == null && answer.charAt(0) == 'y'){
+                System.out.println("I guess that your object is " + curNode.left.data + "\nAm I right? ");
+                String confirmation = sc.nextLine();
+                if(confirmation.charAt(0) == 'y'){
+                    System.out.println("Awesome! I win!");
+                } else {
+                    System.out.println("Boo! I lose. Please help me get better!\nWhat is your object? ");
+                    String newObject = sc.nextLine();
+                    System.out.println("Please give me a yes/no question that distinguishes between " +  curNode.left.data + " and " + newObject + ".");
+                    String newQuestion = sc.nextLine();
+                    System.out.println("Is the answer \"yes\" for car? (y/n)? ");
+                    String questionAnswer = sc.nextLine();
+                    if(questionAnswer.charAt(0) == 'y'){
+                        curNode.left = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.left);
+                    }//make the thing for if the answer is no!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
+            } else if(curNode.right.left == null){
+                System.out.println("I guess that your object is " + curNode.right.data + "\nAm I right? ");
+                String confirmation = sc.nextLine();
+                if(confirmation.charAt(0) == 'y'){
+                    System.out.println("Awesome! I win!");
+                } else {
+                    System.out.println("Boo! I lose. Please help me get better!\nWhat is your object? ");
+                    String newObject = sc.nextLine();
+                    System.out.println("Please give me a yes/no question that distinguishes between " +  curNode.right.data + " and " + newObject + ".");
+                    String newQuestion = sc.nextLine();
+                    System.out.println("Is the answer \"yes\" for car? (y/n)? ");
+                    String questionAnswer = sc.nextLine();
+                    if(questionAnswer.charAt(0) == 'y'){
+                        curNode.right = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.left);
+                    }//make the thing for if the answer is no!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                }
+            } else if(answer.charAt(0) == 'y'){
+                curNode = curNode.left;
+            } else {
+                curNode = curNode.right;
+            }
         }
     }
 }
