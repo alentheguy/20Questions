@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class QuestionsGame {
     // Your code here
-    QuestionNode overallQuestion;
+    public QuestionNode overallRoot;
 
-    private static class QuestionNode {
+    public static class QuestionNode {
         // Your code here
         public String data;//should be the question we can change it later tho
         public QuestionNode left;//otherwise yes
@@ -28,13 +28,14 @@ public class QuestionsGame {
     }
 
     public QuestionsGame(String object) {//ben
-        overallQuestion = new QuestionNode(object);
+        overallRoot = new QuestionNode(object);
 
     }
 
     public QuestionsGame(Scanner input) {//alvin
-        this(input.nextLine());
-        addBranch(input, overallQuestion);
+        input.nextLine();
+        overallRoot = new QuestionNode(input.nextLine());
+        addBranch(input, overallRoot);
     }
 
     private Boolean addBranch(Scanner input, QuestionNode curNode){
@@ -42,7 +43,8 @@ public class QuestionsGame {
             return true;
         } else if(input.nextLine().charAt(0) == 'Q'){
             curNode.left = new QuestionNode(input.nextLine());
-            return addBranch(input, curNode.left);
+            QuestionNode newNode = curNode.right;
+            return addBranch(input, curNode.left) && addBranch(input, newNode);
         } else {
             curNode.left = new QuestionNode(input.nextLine());
             if(input.nextLine().charAt(0) == 'A'){
@@ -50,7 +52,8 @@ public class QuestionsGame {
                 return true;
             } else {
                 curNode.right = new QuestionNode(input.nextLine());
-                return addBranch(input, curNode.right);
+                QuestionNode newNode = curNode.right;
+                return addBranch(input, curNode.right) && addBranch(input, newNode);
             }
         }
     }
@@ -59,7 +62,7 @@ public class QuestionsGame {
         if(output==null){
             throw new IllegalArgumentException();
         }
-        printQuest(output, overallQuestion);
+        printQuest(output, overallRoot);
     }
 
     public Boolean printQuest(PrintStream output, QuestionNode curNode){
@@ -85,7 +88,7 @@ public class QuestionsGame {
 
     public void play() {//alvin
         Scanner sc = new Scanner(System.in);
-        QuestionNode curNode = overallQuestion;
+        QuestionNode curNode = overallRoot;
         while(curNode != null){
             System.out.println(curNode.data + "\n");
             String answer = sc.nextLine();
@@ -103,7 +106,9 @@ public class QuestionsGame {
                     String questionAnswer = sc.nextLine();
                     if(questionAnswer.charAt(0) == 'y'){
                         curNode.left = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.left);
-                    }//make the thing for if the answer is no!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    } else {
+                        curNode.left = new QuestionNode(newQuestion, curNode.left, new QuestionNode(newObject));
+                    }
                 }
             } else if(curNode.right.left == null){
                 System.out.println("I guess that your object is " + curNode.right.data + "\nAm I right? ");
@@ -118,8 +123,10 @@ public class QuestionsGame {
                     System.out.println("Is the answer \"yes\" for car? (y/n)? ");
                     String questionAnswer = sc.nextLine();
                     if(questionAnswer.charAt(0) == 'y'){
-                        curNode.right = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.left);
-                    }//make the thing for if the answer is no!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        curNode.right = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.right);
+                    } else {
+                        curNode.left = new QuestionNode(newQuestion, curNode.right, new QuestionNode(newObject));
+                    }
                 }
             } else if(answer.charAt(0) == 'y'){
                 curNode = curNode.left;
