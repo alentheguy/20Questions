@@ -91,7 +91,7 @@ public class QuestionsGame {
                     String newObject = sc.nextLine();
                     System.out.println("Please give me a yes/no question that distinguishes between " +  curNode.left.data + " and " + newObject + ".");
                     String newQuestion = sc.nextLine();
-                    System.out.println("Is the answer \"yes\" for car? (y/n)? ");
+                    System.out.println("Is the answer \"yes\" for " + newObject + "? (y/n)? ");
                     String questionAnswer = sc.nextLine();
                     if(questionAnswer.charAt(0) == 'y'){
                         curNode.left = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.left);
