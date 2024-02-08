@@ -57,18 +57,11 @@ public class QuestionsGame {
         if(curNode.left!=null||curNode.right!=null){
             output.println("Q: ");
             output.println(curNode.data);
-        }
-        else if(curNode.left==null&&curNode.right==null){
-            output.println("A: ");
-            output.println(curNode.data);
-        }
-        if(curNode.left != null){
-            return printQuest(output, curNode.left);
-        }
-        else if(curNode.right != null){
-            return printQuest(output, curNode.right);
+            return printQuest(output, curNode.left) && printQuest(output, curNode.right);
         }
         else{
+            output.println("A: ");
+            output.println(curNode.data);
             return true;
         }
     }
@@ -110,7 +103,7 @@ public class QuestionsGame {
                     String newObject = sc.nextLine();
                     System.out.println("Please give me a yes/no question that distinguishes between " +  curNode.right.data + " and " + newObject + ".");
                     String newQuestion = sc.nextLine();
-                    System.out.println("Is the answer \"yes\" for car? (y/n)? ");
+                    System.out.println("Is the answer \"yes\" for " + newObject + "? (y/n)? ");
                     String questionAnswer = sc.nextLine();
                     if(questionAnswer.charAt(0) == 'y'){
                         curNode.right = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.right);
