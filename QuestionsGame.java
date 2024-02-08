@@ -33,28 +33,16 @@ public class QuestionsGame {
     }
 
     public QuestionsGame(Scanner input) {//alvin
-        input.nextLine();
-        overallRoot = new QuestionNode(input.nextLine());
-        addBranch(input, overallRoot);
+        overallRoot = addBranch(input);
     }
 
-    private Boolean addBranch(Scanner input, QuestionNode curNode){
+    private QuestionNode addBranch(Scanner input){
         if(!input.hasNextLine()){
-            return true;
+            return null;
         } else if(input.nextLine().charAt(0) == 'Q'){
-            curNode.left = new QuestionNode(input.nextLine());
-            QuestionNode newNode = curNode.right;
-            return addBranch(input, curNode.left) && addBranch(input, newNode);
+            return new QuestionNode(input.nextLine(), addBranch(input), addBranch(input));
         } else {
-            curNode.left = new QuestionNode(input.nextLine());
-            if(input.nextLine().charAt(0) == 'A'){
-                curNode.right = new QuestionNode(input.nextLine());
-                return true;
-            } else {
-                curNode.right = new QuestionNode(input.nextLine());
-                QuestionNode newNode = curNode.right;
-                return addBranch(input, curNode.right) && addBranch(input, newNode);
-            }
+            return new QuestionNode(input.nextLine());
         }
     }
 
@@ -97,6 +85,7 @@ public class QuestionsGame {
                 String confirmation = sc.nextLine();
                 if(confirmation.charAt(0) == 'y'){
                     System.out.println("Awesome! I win!");
+                    break;
                 } else {
                     System.out.println("Boo! I lose. Please help me get better!\nWhat is your object? ");
                     String newObject = sc.nextLine();
@@ -115,6 +104,7 @@ public class QuestionsGame {
                 String confirmation = sc.nextLine();
                 if(confirmation.charAt(0) == 'y'){
                     System.out.println("Awesome! I win!");
+                    break;
                 } else {
                     System.out.println("Boo! I lose. Please help me get better!\nWhat is your object? ");
                     String newObject = sc.nextLine();
