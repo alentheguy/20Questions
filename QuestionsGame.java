@@ -34,17 +34,17 @@ public class QuestionsGame {
 
     }
 
-    public QuestionsGame(Scanner input) {//alvin
-        overallRoot = addBranch(input);
+    public QuestionsGame(Scanner input) {//creates the tree out of a file
+        overallRoot = addBranch(input);//call the recursive function on the overall root
     }
 
-    private QuestionNode addBranch(Scanner input){
-        if(!input.hasNextLine()){
-            return null;
-        } else if(input.nextLine().charAt(0) == 'Q'){
-            return new QuestionNode(input.nextLine(), addBranch(input), addBranch(input));
-        } else {
-            return new QuestionNode(input.nextLine());
+    private QuestionNode addBranch(Scanner input){//recursive call to create the tree
+        if(!input.hasNextLine()){//check if the file continues.
+            return null;//end recursive call
+        } else if(input.nextLine().charAt(0) == 'Q'){//check if the next information is a question.
+            return new QuestionNode(input.nextLine(), addBranch(input), addBranch(input));//create the node with the information and continue on left and right.
+        } else {//if the information is an answer
+            return new QuestionNode(input.nextLine());//create node with only information and no children
         }
     }
 
@@ -79,26 +79,35 @@ public class QuestionsGame {
 
 
     public void play() {//alvin
-        Scanner sc = new Scanner(System.in);
-        QuestionNode curNode = overallRoot;
-        while(curNode != null){
+        Scanner sc = new Scanner(System.in);//create scanner
+        QuestionNode curNode = overallRoot;//temp node
+        while(curNode != null){//go through tree until end
+            //prints question and gets answer
             System.out.println(curNode.data + "\n");
             String answer = sc.nextLine();
-            if(curNode.left.left == null && answer.charAt(0) == 'y'){
+            if(curNode.left.left == null && answer.charAt(0) == 'y'){//if answer was yes
+                //checks to see if it got the obect right
                 System.out.println("I guess that your object is " + curNode.left.data + "\nAm I right? ");
                 String confirmation = sc.nextLine();
+                //if it did print i win and end code
                 if(confirmation.charAt(0) == 'y'){
                     System.out.println("Awesome! I win!");
                     break;
+                //if it didnt
                 } else {
+                    //ask for new object and save in newObject
                     System.out.println("Boo! I lose. Please help me get better!\nWhat is your object? ");
                     String newObject = sc.nextLine();
+                    //ask for question and save in newQuestion
                     System.out.println("Please give me a yes/no question that distinguishes between " +  curNode.left.data + " and " + newObject + ".");
                     String newQuestion = sc.nextLine();
+                    //ask if you go left or right for the quesion
                     System.out.println("Is the answer \"yes\" for " + newObject + "? (y/n)? ");
                     String questionAnswer = sc.nextLine();
+                    //if yes add new node to the left of tree
                     if(questionAnswer.charAt(0) == 'y'){
                         curNode.left = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.left);
+                    //if no also add new node to the right of tree
                     } else {
                         curNode.left = new QuestionNode(newQuestion, curNode.left, new QuestionNode(newObject));
                     }

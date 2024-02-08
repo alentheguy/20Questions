@@ -6,8 +6,16 @@ A:
 bird
 Q: 
 Does it have a tail?
+Q: 
+Can it change color?
+A: 
+chamelion
 A: 
 mouse
+Q: 
+Can it change color?
+A: 
+chamelion
 A: 
 spider
 Q: 
