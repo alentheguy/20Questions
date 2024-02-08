@@ -17,16 +17,18 @@ public class QuestionsGame {
         public QuestionNode right;//otherwise no
 
         public QuestionNode(String data){   
+            //default constructor
             this(data, null, null);
         }
 
         public QuestionNode(String data, QuestionNode left, QuestionNode right){
+            //ads left and right
             this.data = data;
             this.left = left;
             this.right = right;
         }
     }
-
+    //adds new object  to root
     public QuestionsGame(String object) {//ben
         overallRoot = new QuestionNode(object);
 
@@ -47,21 +49,30 @@ public class QuestionsGame {
     }
 
     public void saveQuestions(PrintStream output) {//ben
+        //if the printStream is null end
         if(output==null){
             throw new IllegalArgumentException();
         }
+        //if it isnt null, start adding the tree to the printStream
         printQuest(output, overallRoot);
     }
 
+    //prints the tree into a printStream
     public Boolean printQuest(PrintStream output, QuestionNode curNode){
+        //if it has 2 kids
         if(curNode.left!=null||curNode.right!=null){
+            //print in question and its data
             output.println("Q: ");
             output.println(curNode.data);
+            //go left and right and recur
             return printQuest(output, curNode.left) && printQuest(output, curNode.right);
         }
         else{
+            //if it doesnt have to kids, means it will have 0
+            //print answer
             output.println("A: ");
             output.println(curNode.data);
+            //end code
             return true;
         }
     }
@@ -92,27 +103,38 @@ public class QuestionsGame {
                         curNode.left = new QuestionNode(newQuestion, curNode.left, new QuestionNode(newObject));
                     }
                 }
+                //if the rights left is null
             } else if(curNode.right.left == null){
+                //checks to see if it got the object right
                 System.out.println("I guess that your object is " + curNode.right.data + "\nAm I right? ");
                 String confirmation = sc.nextLine();
+                //if it did print i win and end code
                 if(confirmation.charAt(0) == 'y'){
                     System.out.println("Awesome! I win!");
                     break;
+                //if it didnt 
                 } else {
+                    //ask for new object and save in newObject
                     System.out.println("Boo! I lose. Please help me get better!\nWhat is your object? ");
                     String newObject = sc.nextLine();
+                    //ask for question and save in newQuestion
                     System.out.println("Please give me a yes/no question that distinguishes between " +  curNode.right.data + " and " + newObject + ".");
                     String newQuestion = sc.nextLine();
+                    //ask if you go left or right for the question
                     System.out.println("Is the answer \"yes\" for " + newObject + "? (y/n)? ");
                     String questionAnswer = sc.nextLine();
+                    //if yes add new node to left of tree
                     if(questionAnswer.charAt(0) == 'y'){
                         curNode.right = new QuestionNode(newQuestion, new QuestionNode(newObject), curNode.right);
+                        //if no also add new node to right of tree
                     } else {
                         curNode.left = new QuestionNode(newQuestion, curNode.right, new QuestionNode(newObject));
                     }
                 }
+                //if its yes go to the left
             } else if(answer.charAt(0) == 'y'){
                 curNode = curNode.left;
+                //if its no then go to the right
             } else {
                 curNode = curNode.right;
             }
